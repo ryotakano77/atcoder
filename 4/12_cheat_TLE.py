@@ -1,9 +1,5 @@
-import math
-from functools import reduce
 from collections import defaultdict
-
-def multi_gcd(*numbers):
-    return reduce(math.gcd, numbers)
+from itertools import product
 
 class UnionFind():
     def __init__(self, n):
@@ -88,3 +84,50 @@ class UnionFindLabel(UnionFind):
         for member in range(self.n):
             group_members[self.d_inv[self.find(member)]].append(self.d_inv[member])
         return group_members
+
+class UnionFindField(UnionFindLabel):
+
+    def __init__(self, H: int, W: int):
+        self.H, self.W = H, W
+        coordinates = [p for p in product(range(H), range(W))]
+        super().__init__(coordinates)
+        self.flags = [[0] * W for _ in range(H)]
+
+    def flag_on(self, r, c):
+        self.flags[r][c] = 1
+
+    def is_flag_on(self, r, c):
+        return self.flags[r][c]
+
+    def find_flag_on_adjacent(self, r, c):
+        # 上右下左
+        X = [0, 1, 0, -1]
+        Y = [-1, 0, 1, 0]
+        for dx, dy in zip(X, Y):
+            nr, nc = r+dx, c+dy
+            # 探す範囲がfield外なら考えない
+            if nr < 0 or nr >= self.H or nc < 0 or nc >= self.W:
+                continue
+            if not self.flags[nr][nc]:
+                continue
+            self.union((r, c), (nr, nc))
+
+H, W = tuple(map(int, input().split()))
+Q = int(input())
+
+uff = UnionFindField(H, W)
+
+ans = []
+for _ in range(Q):
+    l = list(map(int, input().split()))
+    if l[0] == 1:
+        uff.flag_on(l[1]-1, l[2]-1)
+        uff.find_flag_on_adjacent(l[1]-1, l[2]-1)
+    else:
+        if uff.is_flag_on(l[1]-1, l[2]-1) and uff.is_flag_on(l[3]-1, l[4]-1) and uff.same((l[1]-1, l[2]-1), (l[3]-1, l[4]-1)):
+            ans.append("Yes")
+        else:
+            ans.append("No")
+
+for s in ans:
+    print(s)
