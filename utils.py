@@ -88,3 +88,54 @@ class UnionFindLabel(UnionFind):
         for member in range(self.n):
             group_members[self.d_inv[self.find(member)]].append(self.d_inv[member])
         return group_members
+
+def prime_factorize(n):
+    a = []
+    while n % 2 == 0:
+        a.append(2)
+        n //= 2
+    f = 3
+    while f * f <= n:
+        if n % f == 0:
+            a.append(f)
+            n //= f
+        else:
+            f += 2
+    if n != 1:
+        a.append(n)
+    return a
+
+def int_minus(a):
+    return int(a) - 1
+
+def Eratosthenes(n: int) -> list:
+    """
+    2からnまでの整数の素因数の数のlistを返す
+    l[i] := iの素因数の数
+    """
+    num_of_primes = [0] * (n + 1)
+    for i in range(2, n+1):
+        if num_of_primes[i] != 0:
+            continue
+        j = 1
+        while i * j <= n:
+            num_of_primes[i*j] += 1
+            j += 1
+
+    return num_of_primes
+
+def Eratosthenes2(n: int) -> list:
+    """
+    2からnまでの整数の素因数の数のlistを返す
+    l[i] := iの素因数の数
+    """
+    num_of_primes = [0] * (n + 1)
+    for i in range(2, n+1):
+        if num_of_primes[i] != 0:
+            continue
+        j = 1
+        while i * j <= n:
+            num_of_primes[i*j] += 1
+            j += 1
+
+    return num_of_primes
