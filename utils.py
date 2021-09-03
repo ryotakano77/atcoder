@@ -139,3 +139,23 @@ def Eratosthenes2(n: int) -> list:
             j += 1
 
     return num_of_primes
+
+
+def calc_remain(k, n, big):
+    """
+    kのn乗をbigで割った余りを求める
+    nが大きい時に有効
+    """
+    i = 1
+    while k ** i < big:
+        i += 1
+        if i >= n:
+            return (k ** n) % big
+    remain = (k ** i) % big
+    # k ** i = n + remain
+    # k ** i === remain
+    div, mod = divmod(n, i)
+    # k ** n = k ** (i * div + mod)
+    #        = (k ** (i)) ** div * (k ** mod)
+    #       === (remain ** div) * (k ** mod)
+    return (calc_remain(remain, div, big) * (k ** mod)) % big
