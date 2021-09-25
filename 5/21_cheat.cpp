@@ -71,10 +71,11 @@ signed main() {
     first_ptr = 0;
     last_ptr = 0;
     //逆行グラフでdfs
+    vector<int> n = last_node;
     for (int i = N-1; i >= 0; i--) {
-        if (seen[last_node[i]]) continue;
+        if (seen[n[i]]) continue;
         groupe = {};
-        dfs(graph_backward, last_node[i], first_ptr, last_ptr);
+        dfs(graph_backward, n[i], first_ptr, last_ptr);
         groupes.push_back(groupe);
     }
 
