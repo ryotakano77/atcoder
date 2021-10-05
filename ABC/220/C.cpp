@@ -20,18 +20,30 @@ const int MOD = (int)1e9 + 7;
 const double EPS = 1e-9;
 
 signed main() {
-    string g;
-    int y, m, d;
-    while (true) {
-        cin >> g;
-        if (g == "#") break;
-        cin >> y >> m >> d;
-        if (y <= 30) cout << g << " " << y << " " << m << " " << d << endl;
-        else if (y == 31 && m * 100 + d <= 430) cout << g << " " << y << " " << m << " " << d << endl;
-        else {
-            g = "?";
-            y -= 30;
-            cout << g << " " << y << " " << m << " " << d << endl;
-        }
+    int N, X;
+    vi A;
+    cin >> N;
+    int tmp_in;
+    REP(i, N) {
+        cin >> tmp_in;
+        A.push_back(tmp_in);
     }
+    //cin >> A[i];
+    cin >> X;
+    X++;
+    //int A_sum = accumulate(A.begin(), A.end(), 0);
+    vi A_sum_partial;
+    int tmp = 0;
+    REP(i, N) {
+        tmp += A[i];
+        A_sum_partial.push_back(tmp);
+    }
+    int A_sum = A_sum_partial[N-1];
+    int div = X / A_sum;
+    div *= N;
+    int mod = X % A_sum;
+    int delta = Lower_bound(A_sum_partial, mod) + 1;
+    //cout << delta << endl;
+    if (mod != 0) div += delta;
+    cout << div << endl;
 }

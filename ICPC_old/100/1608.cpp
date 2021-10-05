@@ -20,18 +20,27 @@ const int MOD = (int)1e9 + 7;
 const double EPS = 1e-9;
 
 signed main() {
-    string g;
-    int y, m, d;
+    int n;
+    int intmp;
     while (true) {
-        cin >> g;
-        if (g == "#") break;
-        cin >> y >> m >> d;
-        if (y <= 30) cout << g << " " << y << " " << m << " " << d << endl;
-        else if (y == 31 && m * 100 + d <= 430) cout << g << " " << y << " " << m << " " << d << endl;
-        else {
-            g = "?";
-            y -= 30;
-            cout << g << " " << y << " " << m << " " << d << endl;
+
+        cin >> n;
+        if (n == 0) break;
+        vi points(n);
+        REP(i, n) {
+            cin >> intmp;
+            points[i] = intmp;
         }
+
+        int ans = INF;
+
+        REP(i, n-1) {
+            FOR(j, i+1, n) {
+                ans = min(ans, abs(points[i]-points[j]));
+            }
+        }
+
+        cout << ans << endl;
+
     }
 }

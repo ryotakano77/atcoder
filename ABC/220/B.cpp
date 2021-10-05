@@ -19,19 +19,30 @@ const int INF = 1LL << 60;
 const int MOD = (int)1e9 + 7;
 const double EPS = 1e-9;
 
-signed main() {
-    string g;
-    int y, m, d;
-    while (true) {
-        cin >> g;
-        if (g == "#") break;
-        cin >> y >> m >> d;
-        if (y <= 30) cout << g << " " << y << " " << m << " " << d << endl;
-        else if (y == 31 && m * 100 + d <= 430) cout << g << " " << y << " " << m << " " << d << endl;
-        else {
-            g = "?";
-            y -= 30;
-            cout << g << " " << y << " " << m << " " << d << endl;
-        }
+long long stringN_to_10(int base, string s) {
+    long long base10=0, x=1, m = s.size();
+    for (int i = 0; i < m; i++) {
+        base10 += 1LL * (s[m-i-1] - '0') * x;
+        x *= base;
     }
+    return base10;
+}
+
+long long base10_to_N(int base, long long original) {
+    string baseN = "";
+    while (original > 0) {
+        baseN = to_string(original % base) + baseN;
+        original /= base;
+    }
+    return stoll(baseN);
+}
+
+signed main() {
+    int K;
+    string A, B;
+    int A_k, B_k;
+    cin >> K >> A >> B;
+    A_k = stringN_to_10(K, A);
+    B_k = stringN_to_10(K, B);
+    cout << A_k * B_k << endl;
 }

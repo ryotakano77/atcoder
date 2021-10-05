@@ -20,5 +20,5 @@ const int MOD = (int)1e9 + 7;
 const double EPS = 1e-9;
 
 signed main() {
-
+    cout << "a" << 1 << endl;
 }

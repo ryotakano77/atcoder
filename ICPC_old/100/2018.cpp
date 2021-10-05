@@ -14,12 +14,28 @@ const int MOD = (int)1e9 + 7;
 const double EPS = 1e-9;
 
 signed main() {
-    int N;
-    vector<int> vec;
-    vector<int> ans;
+    int N, M, P;
+    int intmp;
     while (true) {
-        cin >> N;
+        cin >> N >> M >> P;
         if (N == 0) break;
 
+        //vector<int> cards(0);
+        int all = 0;
+        int hit = 0;
+
+        REP(i, N) {
+            cin >> intmp;
+            all += intmp * 100;
+            if (i+1 == M) hit = intmp;
+        }
+
+        float tmp = all * (100 - P) / 100.0;
+
+        int ans;
+        if (hit != 0) ans = tmp / hit;
+        else ans = 0;
+
+        cout << ans << endl;
     }
 }

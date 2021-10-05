@@ -20,18 +20,15 @@ const int MOD = (int)1e9 + 7;
 const double EPS = 1e-9;
 
 signed main() {
-    string g;
-    int y, m, d;
-    while (true) {
-        cin >> g;
-        if (g == "#") break;
-        cin >> y >> m >> d;
-        if (y <= 30) cout << g << " " << y << " " << m << " " << d << endl;
-        else if (y == 31 && m * 100 + d <= 430) cout << g << " " << y << " " << m << " " << d << endl;
-        else {
-            g = "?";
-            y -= 30;
-            cout << g << " " << y << " " << m << " " << d << endl;
-        }
+    int A, B, C;
+    cin >> A >> B >> C;
+    int div, mod, next;
+    div = A / C;
+    mod = A % C;
+    next = C * (div + 1);
+    if (mod == 0) cout << A << endl;
+    else {
+        if (next > B) cout << -1 << endl;
+        else cout << next << endl;
     }
 }
